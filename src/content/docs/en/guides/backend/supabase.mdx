@@ -428,7 +428,7 @@ if (accessToken && refreshToken) {
 
 Finally, edit the sign in server endpoint to handle the OAuth provider. If the `provider` is present, it will redirect to the OAuth provider. Otherwise, it will sign in the user with the email and password.
 
-```ts title="src/pages/api/auth/signin.ts" ins={10-23}
+```ts title="src/pages/api/auth/signin.ts" ins={3, 9-26}
 import type { APIRoute } from "astro";
 import { supabase } from "../../../lib/supabase";
 import type { Provider } from "@supabase/supabase-js";
@@ -445,7 +445,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider as Provider,
       options: {
-        redirectTo: "http://localhost:4321/api/auth/callback"
+        redirectTo: "/api/auth/callback"
       },
     });
 
